@@ -1,2 +1,2 @@
 # Dissertation
-The Server and web interface for mu dissertation
+The Server and web interface for my dissertation
