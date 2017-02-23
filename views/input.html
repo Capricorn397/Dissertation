@@ -1,0 +1,67 @@
+<html>
+<style>
+	#mydiv {
+    	position:fixed;
+    	top: 50%;
+    	left: 50%;
+    	width:35em;
+    	height:20em;
+    	margin-top: -9em;
+    	margin-left: -15em;
+    	border: 1px solid #ccc;
+    	background-color: #f3f3f3;
+		}
+		#bigtext {
+			position:fixed;
+			top: 55%;
+			left: 50%;
+			margin-top: -9em;
+			margin-left: -15em;
+			border: 1px solid #ccc;
+		}
+		#mybutton {
+			position:fixed;
+			top: 61%;
+			left: 50%;
+			margin-top: -9em;
+			margin-left: -15em;
+			border: 1px solid #ccc;
+		}
+</style>
+	<head>
+		<title>Input Page</title>
+	</head>
+	<body>
+		<div id=mydiv>
+			<form>
+				<h1 align=center>Question Input</h1><br>
+				Module Code:<br>
+				<input id=code type="text"><br>
+				Question:<br>
+				<textarea id=question rows="8" cols="50">
+				</textarea><br>
+				<input type="submit">
+			</form>
+		</div>
+	</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('form').submit(function() {
+		event.preventDefault();
+		const modCode = document.getElementById('code').value;
+		const question = document.getElementById('question').value;
+		console.log('variables are ' + modCode + ' ' + question);
+		//$.ajax({
+		//	type: 'GET',
+		//	url: '/search?location='+location+'&catID='+catagory+'&dat='+dateTime,
+		//	error: function(err) {
+		//		console.log(err);
+		//	},
+		//	success: function() {}
+	})
+})
+</script>

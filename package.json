@@ -1,0 +1,22 @@
+{
+  "name": "dissertation_backend",
+  "version": "0.0.1",
+  "description": "The web and server backend for my dissertation project",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Capricorn397/Dissertation.git"
+  },
+  "author": "Christopher Carr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Capricorn397/Dissertation/issues"
+  },
+  "homepage": "https://github.com/Capricorn397/Dissertation#readme",
+  "dependencies": {
+    "restify": "^4.3.0"
+  }
+}
