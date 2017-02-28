@@ -49,6 +49,14 @@ server.get('/ping', (req, res) => {
 	exports.info.logEvent('Sent Pong back from ping request')
 })
 
+server.post('/questin', (req, res) => {
+	console.log('Question In')
+	const modCode = req.headers.code
+	const question = req.body
+	console.log(`Given question: ${question} for Module: ${modCode}`)
+	res.send('Complete')
+})
+
 server.get('/input.html', restify.serveStatic({
 	directory: './views',
 	file: 'input.html'

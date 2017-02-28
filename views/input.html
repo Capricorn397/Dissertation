@@ -55,13 +55,20 @@ $(document).ready(function() {
 		const modCode = document.getElementById('code').value;
 		const question = document.getElementById('question').value;
 		console.log('variables are ' + modCode + ' ' + question);
-		//$.ajax({
-		//	type: 'GET',
-		//	url: '/search?location='+location+'&catID='+catagory+'&dat='+dateTime,
-		//	error: function(err) {
-		//		console.log(err);
-		//	},
-		//	success: function() {}
+		$.ajax({
+			type: 'POST',
+			url: 'http://localhost:8000/questin',
+			headers: {
+				code: modCode
+			},
+			data: question,
+			error: function(err) {
+				console.log(err);
+			},
+			success: function() {
+				console.log('Sent')
+			}
+		})
 	})
 })
 </script>
