@@ -21,6 +21,11 @@ const httpCodes = {
 	internalServerError: 500
 }
 
+const questionStore = []
+const answerStoreWord = []
+const answerStoreYN = [0,0]
+const answerStoreTF = [0,0]
+
 const serv = () => {
 	server.listen(port, () => {
 		console.log(`Server at ${server.url}`)
@@ -53,6 +58,7 @@ server.post('/questin', (req, res) => {
 	console.log('Question In')
 	const modCode = req.headers.code
 	const question = req.body
+	questionStore[j] =
 	console.log(`Given question: ${question} for Module: ${modCode}`)
 	res.send('Complete')
 })
