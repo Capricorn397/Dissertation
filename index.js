@@ -21,10 +21,11 @@ const httpCodes = {
 	internalServerError: 500
 }
 
-const questionStore = []
-const answerStoreWord = []
+const questionStore = {}
+const answerStoreWord = {}
 const answerStoreYN = [0,0]
 const answerStoreTF = [0,0]
+const moduleTokens = ['340ct', '380ct', '370ct']
 
 const serv = () => {
 	server.listen(port, () => {
@@ -58,9 +59,20 @@ server.post('/questin', (req, res) => {
 	console.log('Question In')
 	const modCode = req.headers.code
 	const question = req.body
-	questionStore[j] =
-	console.log(`Given question: ${question} for Module: ${modCode}`)
-	res.send('Complete')
+	let modTest = false
+	for i in moduleTokens {
+		if modCode === moduleTokens[i]{
+			modTest = true
+		}
+	}
+	if modTest === false {
+		res.send('Error No Registered Module')
+	}
+	else {
+		questionStore[modCode] = question
+		console.log(questionStore)
+		res.send('Complete')
+	}
 })
 
 server.get('/input.html', restify.serveStatic({
