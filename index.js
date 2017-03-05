@@ -2,6 +2,7 @@
 
 const database = require('mysql')
 const restify = require('restify')
+const time = require('time')
 const error = ''
 const port = 8000
 const firstArray = 0
@@ -67,8 +68,10 @@ server.get('/ping', (req, res) => {
 
 server.post('/questin', (req, res) => {
 	console.log('Question In')
+	const now = new time.time();
 	const modCode = req.headers.code
 	const question = req.body
+	const qID = `q${modCode}${now}`
 	let modTest = false
 	for (let i = 0; i < moduleTokens.length; i++) {
 		if (modCode == moduleTokens[i]) {
@@ -79,9 +82,14 @@ server.post('/questin', (req, res) => {
 		res.send('Error No Registered Module')
 	}
 	else {
-		questionStore[modCode] = question
-		console.log(questionStore)
-		res.send('Complete')
+		sqlStatement = `INSERT INTO questions (${qID}, ${question})`
+		sql.query(sqlStatement, (err, rows) => {
+			if (err) {
+				new error('SQL Error')
+			} else {
+				res.send(`Question sent with ID: ${qID}`)
+			}
+		})
 	}
 })
 
