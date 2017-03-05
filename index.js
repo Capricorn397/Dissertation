@@ -71,8 +71,8 @@ server.post('/questin', (req, res) => {
 	const time = now.getTime()
 	const modCode = req.headers.code
 	const question = req.body
-	const qID = `q${modCode}${time}`
-	const sqlStatement = `INSERT INTO questions ('${qID}', '${question}');`
+	const qID = `${modCode}${time}q`
+	const sqlStatement = `INSERT INTO questions VALUES ('${qID}', '${question}');`
 	let modTest = false
 	for (let i = 0; i < moduleTokens.length; i++) {
 		if (modCode == moduleTokens[i]) {
