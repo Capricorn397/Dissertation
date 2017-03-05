@@ -2,7 +2,6 @@
 
 const database = require('mysql')
 const restify = require('restify')
-const time = require('time')
 const error = ''
 const port = 8000
 const firstArray = 0
@@ -68,10 +67,11 @@ server.get('/ping', (req, res) => {
 
 server.post('/questin', (req, res) => {
 	console.log('Question In')
-	const now = new time.time();
+	const now = new Date()
+	const time = now.getTime()
 	const modCode = req.headers.code
 	const question = req.body
-	const qID = `q${modCode}${now}`
+	const qID = `q${modCode}${time}`
 	let modTest = false
 	for (let i = 0; i < moduleTokens.length; i++) {
 		if (modCode == moduleTokens[i]) {
