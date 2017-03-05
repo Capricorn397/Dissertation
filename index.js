@@ -85,7 +85,7 @@ server.post('/questin', (req, res) => {
 	else {
 		sql.query(sqlStatement, (err, rows) => {
 			if (err) {
-				throw new Error('SQL Error')
+				throw new Error(err)
 			} else {
 				res.send(`Question sent with ID: ${qID}`)
 			}
