@@ -65,8 +65,8 @@ $(document).ready(function() {
 			error: function(err) {
 				console.log(err);
 			},
-			success: function() {
-				console.log('Sent')
+			success: function(res) {
+				console.log(res)
 			}
 		})
 	})

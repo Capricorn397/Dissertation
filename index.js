@@ -100,8 +100,15 @@ server.get('/input.html', restify.serveStatic({
 
 server.post('/register', (req, res) => {
 	const mod = req.headers.module
-	const unique = 'thing'//Get number from sql
-	const userCode = mod + unique
-	//Store user in database
-	res.send(userCode)
+	const udat = new Date()
+	const unique = udat.getTime()
+	const userCode = `${mod}${unique}u`
+	const userSQL = `INSERT INTO users VALUES ('${userCode}', '${mod}');`
+	sql.query(userSQL, (err, rows) => {
+		if (err) {
+			throw new Error(err)
+		} else {
+			res.send(userCode)
+		}
+	})
 })
