@@ -11,6 +11,7 @@ const server = restify.createServer({
 	name: 'Dissertation_Server',
 	version: '0.0.5'
 })
+const io = require('socket.io')(server)
 const httpCodes = {
 	OK: 200,
 	Created: 201,
@@ -88,6 +89,30 @@ server.post('/questin', (req, res) => {
 				throw new Error(err)
 			} else {
 				res.send(`Question sent with ID: ${qID}`)
+				/*sql.query(`SELECT user_id FROM users WHERE module_id='${modCode}'`, (err, rows) => {
+					if (err) {
+						console.log(err)
+					} else {
+						const clients = []
+						for (let o in rows) {
+							clients.push(rows[o])
+						}
+						const iOSQuestion = {
+							id: qID,
+							quest: question
+						}
+						for (let u in clients) {
+							io.on('connection', (clients[u]) => {
+								client.on('event', (iOSQuestion) => {
+
+								})
+								client.on('disconnect', () => {
+
+								})
+							})
+						}
+					}
+				})*/
 			}
 		})
 	}
@@ -111,4 +136,11 @@ server.post('/register', (req, res) => {
 			res.send(userCode)
 		}
 	})
+})
+
+server.post('/answerin', (req, res) => {
+	const qid = req.headers.qid
+	const uid = req.headers.uid
+	const answer = req.body.answer
+	
 })
