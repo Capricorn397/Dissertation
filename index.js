@@ -82,7 +82,7 @@ server.post('/questin', (req, res) => {
 		res.send('Error No Registered Module')
 	}
 	else {
-		sqlStatement = `INSERT INTO questions (${qID}, ${question})`
+		sqlStatement = `INSERT INTO questions ('${qID}', '${question}');`
 		sql.query(sqlStatement, (err, rows) => {
 			if (err) {
 				new error('SQL Error')
