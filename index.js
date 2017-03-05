@@ -72,6 +72,7 @@ server.post('/questin', (req, res) => {
 	const modCode = req.headers.code
 	const question = req.body
 	const qID = `q${modCode}${time}`
+	const sqlStatement = `INSERT INTO questions ('${qID}', '${question}');`
 	let modTest = false
 	for (let i = 0; i < moduleTokens.length; i++) {
 		if (modCode == moduleTokens[i]) {
@@ -82,7 +83,6 @@ server.post('/questin', (req, res) => {
 		res.send('Error No Registered Module')
 	}
 	else {
-		sqlStatement = `INSERT INTO questions ('${qID}', '${question}');`
 		sql.query(sqlStatement, (err, rows) => {
 			if (err) {
 				new error('SQL Error')
