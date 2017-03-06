@@ -11,7 +11,7 @@ const server = restify.createServer({
 	name: 'Dissertation_Server',
 	version: '0.0.5'
 })
-const io = require('socket.io')(server)
+const io = socketio.listen(server.server)
 const httpCodes = {
 	OK: 200,
 	Created: 201,
