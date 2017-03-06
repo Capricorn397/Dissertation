@@ -2,6 +2,7 @@
 
 const database = require('mysql')
 const restify = require('restify')
+const socketio = require('socket.io')
 const error = ''
 const port = 8000
 const firstArray = 0
