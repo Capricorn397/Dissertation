@@ -32,7 +32,9 @@ $(document).ready(function() {
 			},
 			success: function(res) {
 				console.log(res)
-				WordCloud(document.getElementById('my_canvas'), { list: res } );
+				const answerList = res
+				WordCloud(document.getElementById('my_canvas'), { list: answerList } );
+				console.log(answerList)
 			}
 		})
 	})
