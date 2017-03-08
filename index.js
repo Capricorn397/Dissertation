@@ -1,5 +1,6 @@
 'use strict'
 
+const http = require('http')
 const database = require('mysql')
 const restify = require('restify')
 const error = ''
@@ -43,6 +44,7 @@ const serv = () => {
 		console.log(`Server at ${server.url}`)
 	})
 }
+const sockServer = http.createServer(serv)
 
 module.exports.start = () => serv()
 serv()
