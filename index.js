@@ -2,7 +2,6 @@
 
 const database = require('mysql')
 const restify = require('restify')
-const socketio = require('socket.io')
 const error = ''
 const port = 8000
 const firstArray = 0
@@ -50,7 +49,8 @@ serv()
 server.use(restify.queryParser())
 server.use(restify.bodyParser())
 
-const io = socketio.listen(serv.server)
+const io = require('socket.io')(serv)
+
 io.sockets.on('connection', function (socket) {
 		console.log('connected')
     socket.emit('news', { hello: 'world' });
