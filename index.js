@@ -158,7 +158,9 @@ server.get('/question', (req, res) => {
 		if (err) {
 			throw new Error(err)
 		} else {
-			console.log(rows)
+			for (let h in rows) {
+							console.log(rows[h])
+			}
 		}
 	})
 })
