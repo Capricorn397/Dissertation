@@ -148,7 +148,14 @@ server.post('/answerin', (req, res) => {
 	const qid = req.headers.qid
 	const uid = req.headers.uid
 	const answer = req.body.answer
-
+	const answerStatement = `INSERT INTO answers ('${qid}', '${uid}', '${answer}');`
+	sql.query(answerStatement, (err, rows) => {
+		if (err) {
+			throw new Error(err)
+		} else {
+			res.send('Answer Submitted')
+		}
+	})
 })
 
 server.get('/question', (req, res) => {
