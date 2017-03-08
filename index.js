@@ -54,12 +54,8 @@ server.use(restify.bodyParser())
 const io = require('socket.io').listen(sockServer)
 
 io.on('connection', function (socket) {
-		console.log('connected')
-    io.emit('news', { hello: 'world' });
-    io.on('my other event', function (data) {
-            console.log(data);
-    });
-});
+		console.log('Client Connected')
+})
 
 //Echo for any given string
 //INPUT: the text given after /echo
