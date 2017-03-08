@@ -184,7 +184,7 @@ server.get('allanswers', (req,res) => {
 			throw new Error(err)
 		} else {
 			for (let r in rows) {
-				allAnswers.push(rows[r])
+				allAnswers.push(rows[r].answer)
 			}
 			res.send(allAnswers)
 		}
