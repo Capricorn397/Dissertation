@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title>Answer Page</title>
+</head>
+<body>
+	<form>
+		<h1 align=center>Select Question</h1><br>
+		Module Code:<br>
+		<input id=code type="text"><br>
+		<input type="submit">
+	</form>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('form').submit(function() {
+		event.preventDefault();
+		const questionCode = document.getElementById('code').value;
+		$.ajax({
+			type: 'GET',
+			url: 'http://217.182.64.177:8000/allAnswers', //'http://localhost:8000/questin'
+			headers: {
+				qid: questionCode
+			},
+			data: question,
+			error: function(err) {
+				console.log(err);
+			},
+			success: function(res) {
+				console.log(res)
+			}
+		})
+	})
+})
+</script>
+</html>

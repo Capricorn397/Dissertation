@@ -129,6 +129,11 @@ server.get('/input.html', restify.serveStatic({
 	file: 'input.html'
 }))
 
+server.get('/answerViewer.html', restify.serveStatic({
+	directory: './views',
+	file: 'answerViewer.html'
+}))
+
 server.post('/register', (req, res) => {
 	const mod = req.headers.module
 	const udat = new Date()
@@ -175,7 +180,7 @@ server.get('/question', (req, res) => {
 	})
 })
 
-server.get('allanswers', (req,res) => {
+server.get('allAnswers', (req,res) => {
 	const questionID = req.headers.qid
 	const allAnsState = `SELECT answer FROM answers WHERE question_id like '${questionID}';`
 	var allAnswers = []
