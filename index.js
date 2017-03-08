@@ -134,6 +134,11 @@ server.get('/answerViewer.html', restify.serveStatic({
 	file: 'answerViewer.html'
 }))
 
+server.get('/wordcloud.js', restify.serveStatic({
+	directory: './node_modules/wordcloud/src',
+	file: 'wordcloud2.js'
+}))
+
 server.post('/register', (req, res) => {
 	const mod = req.headers.module
 	const udat = new Date()
