@@ -162,5 +162,6 @@ server.get('/question', (req, res) => {
 							console.log(rows[h])
 			}
 		}
+		res.send('Done')
 	})
 })
