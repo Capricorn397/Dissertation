@@ -33,8 +33,9 @@ $(document).ready(function() {
 			success: function(res) {
 				console.log(res)
 				const answerList = res
-				WordCloud(document.getElementById('my_canvas'), { list: answerList } );
 				console.log(answerList)
+				WordCloud(document.getElementById('mycanvas'), { list: answerList } );
+
 			}
 		})
 	})
