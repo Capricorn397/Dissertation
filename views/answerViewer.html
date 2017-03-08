@@ -47,6 +47,7 @@ $(document).ready(function() {
 				console.log(res)
 				const answerList = res
 				console.log(answerList)
+				WordCloud.minfontsize = 30
 				WordCloud(document.getElementById('mycanvas'), { list: answerList } );
 
 			}
