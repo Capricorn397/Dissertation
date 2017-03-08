@@ -152,13 +152,17 @@ server.post('/answerin', (req, res) => {
 })
 
 server.get('/question', (req, res) => {
+	var listedQuestions = {}
 	const module = req.headers.mod
 	const statement = `SELECT * FROM questions WHERE question_id LIKE '%${module}%';`
 	sql.query(statement, (err, rows) =>{
 		if (err) {
 			throw new Error(err)
 		} else {
-			console.log(rows)
+			for (let h in rows) {
+				listedQuestions[rows[h].question_id] = rows[h].question
+			}
+			console.log(listedQuestions)
 		}
 		res.send('Done')
 	})
