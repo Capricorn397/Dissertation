@@ -189,12 +189,16 @@ server.get('allAnswers', (req,res) => {
 	const questionID = req.headers.qid
 	const allAnsState = `SELECT answer FROM answers WHERE question_id like '${questionID}';`
 	var allAnswers = [[]]
+	var temp = []
 	sql.query(allAnsState, (err, rows) => {
 		if (err) {
 			throw new Error(err)
 		} else {
 			for (let r in rows) {
-				allAnswers.push([rows[r].answer, 1])
+				temp.push(rows[r].answer)
+			}
+			for (let q in temp) {
+				allAnswers[q] = [temp[r], 1]
 			}
 			res.send(allAnswers)
 		}
