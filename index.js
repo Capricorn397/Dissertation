@@ -52,8 +52,6 @@ server.listen(8000, () => {
 	console.log('socket.io server listening at %s', server.url)
 })
 
-module.exports.start = () => serv()
-serv()
 server.use(restify.queryParser())
 server.use(restify.bodyParser())
 
