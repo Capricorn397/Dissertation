@@ -164,6 +164,6 @@ server.get('/question', (req, res) => {
 			}
 			console.log(listedQuestions)
 		}
-		res.send('Done')
+		res.send(JSON.stringify(listedQuestions))
 	})
 })
