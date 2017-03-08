@@ -51,7 +51,7 @@ serv()
 server.use(restify.queryParser())
 server.use(restify.bodyParser())
 
-const io = require('socket.io')(serv)
+const io = require('socket.io').listen(sockServer)
 
 io.sockets.on('connection', function (socket) {
 		console.log('connected')
