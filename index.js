@@ -12,7 +12,7 @@ const server = restify.createServer({
 	name: 'Dissertation_Server',
 	version: '0.0.5'
 })
-const io = socketio.listen(server.server)
+
 const httpCodes = {
 	OK: 200,
 	Created: 201,
@@ -39,14 +39,6 @@ const answerStoreYN = [0,0]
 const answerStoreTF = [0,0]
 const moduleTokens = ['340ct', '380ct', '370ct']
 
-io.sockets.on('connection', function (socket) {
-		console.log('connected')
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-            console.log(data);
-    });
-});
-
 const serv = () => {
 	server.listen(port, () => {
 		console.log(`Server at ${server.url}`)
@@ -57,6 +49,15 @@ module.exports.start = () => serv()
 serv()
 server.use(restify.queryParser())
 server.use(restify.bodyParser())
+
+const io = socketio.listen(serv.server)
+io.sockets.on('connection', function (socket) {
+		console.log('connected')
+    socket.emit('news', { hello: 'world' });
+    socket.on('my other event', function (data) {
+            console.log(data);
+    });
+});
 
 //Echo for any given string
 //INPUT: the text given after /echo
