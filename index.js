@@ -198,7 +198,7 @@ server.get('allAnswers', (req,res) => {
 				temp.push(rows[r].answer)
 			}
 			for (let q in temp) {
-				allAnswers[q] = [temp[r], 1]
+				allAnswers[q] = [temp[q], 1]
 			}
 			res.send(allAnswers)
 		}
