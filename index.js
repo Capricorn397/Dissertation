@@ -53,10 +53,10 @@ server.use(restify.bodyParser())
 
 const io = require('socket.io').listen(sockServer)
 
-io.sockets.on('connection', function (socket) {
+io.on('connection', function (socket) {
 		console.log('connected')
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
+    io.emit('news', { hello: 'world' });
+    io.on('my other event', function (data) {
             console.log(data);
     });
 });
