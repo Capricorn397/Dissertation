@@ -4,6 +4,7 @@ const http = require('http')
 const database = require('mysql')
 const restify = require('restify')
 const error = ''
+const socketio = require('socket.io')
 const port = 8000
 const firstArray = 0
 const twoDP = 2
@@ -12,7 +13,13 @@ const server = restify.createServer({
 	name: 'Dissertation_Server',
 	version: '0.0.5'
 })
+const io = socketio.listen(server);
 
+const questionStore = {}
+const answerStoreWord = {}
+const answerStoreYN = [0,0]
+const answerStoreTF = [0,0]
+const moduleTokens = ['340ct', '380ct', '370ct']
 const httpCodes = {
 	OK: 200,
 	Created: 201,
@@ -33,29 +40,22 @@ const sql = database.createPool({
 	connectionLimit: 10
 })
 
-const questionStore = {}
-const answerStoreWord = {}
-const answerStoreYN = [0,0]
-const answerStoreTF = [0,0]
-const moduleTokens = ['340ct', '380ct', '370ct']
+io.sockets.on('connection', function (socket) {
+	console.log('In connection area of io')
+	socket.emit('news', { hello: 'world' })
+	socket.on('my other event', function (data) {
+    console.log(data)
+  })
+})
 
-const serv = () => {
-	server.listen(port, () => {
-		console.log(`Server at ${server.url}`)
-	})
-}
-const sockServer = http.createServer(serv)
+server.listen(8000, () => {
+	console.log('socket.io server listening at %s', server.url)
+})
 
 module.exports.start = () => serv()
 serv()
 server.use(restify.queryParser())
 server.use(restify.bodyParser())
-
-const io = require('socket.io').listen(sockServer)
-
-io.on('connection', function (socket) {
-		console.log('Client Connected')
-})
 
 //Echo for any given string
 //INPUT: the text given after /echo
