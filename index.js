@@ -162,7 +162,7 @@ server.get('/question', (req, res) => {
 	var listedQuestions = {}
 	const module = req.headers.mod
 	const statement = `SELECT * FROM questions WHERE question_id LIKE '%${module}%';`
-	sql.query(statement, (err, rows) =>{
+	sql.query(statement, (err, rows) => {
 		if (err) {
 			throw new Error(err)
 		} else {
@@ -172,5 +172,21 @@ server.get('/question', (req, res) => {
 			console.log(listedQuestions)
 		}
 		res.send(JSON.stringify(listedQuestions))
+	})
+})
+
+server.get('allanswers', (req,res) => {
+	const questionID = req.headers.qid
+	const allAnsState = `SELECT answer FROM answers WHERE question_id '${questionID}';`
+	var allAnswers = []
+	sql.query(allAnsState, (err, rows) => {
+		if (err) {
+			throw new Error(err)
+		} else {
+			for (let r in rows) {
+				allAnswers.push(rows[r])
+			}
+			res.send(allAnswers)
+		}
 	})
 })
