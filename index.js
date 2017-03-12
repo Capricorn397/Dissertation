@@ -173,9 +173,6 @@ server.get('/question', (req, res) => {
 	var listedQuestions = {}
 	const module = req.headers.mod
 	console.log(module)
-	if (module == NULL) {
-		res.send('Module was null but recieved request')
-	}
 	const statement = `SELECT * FROM questions WHERE question_id LIKE '%${module}%';`
 	console.log(statement)
 	sql.query(statement, (err, rows) => {
