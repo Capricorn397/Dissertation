@@ -172,6 +172,7 @@ server.get('/question', (req, res) => {
 	console.log('Question Get')
 	var listedQuestions = {}
 	const module = req.headers.mod
+	console.log(module)
 	if (module == NULL) {
 		res.send('Module was null but recieved request')
 	}
