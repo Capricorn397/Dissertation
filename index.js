@@ -177,11 +177,13 @@ server.get('/question', (req, res) => {
 		res.send('Module was null but recieved request')
 	}
 	const statement = `SELECT * FROM questions WHERE question_id LIKE '%${module}%';`
+	console.log(statement)
 	sql.query(statement, (err, rows) => {
 		if (err) {
 			console.log(err)
 			throw new Error(err)
 		} else {
+			console.log(rows)
 			for (let h in rows) {
 				listedQuestions[rows[h].question_id] = rows[h].question
 			}
