@@ -170,7 +170,7 @@ server.post('/answerin', (req, res) => {
 
 server.get('/question', (req, res) => {
 	console.log('Question Get')
-	var listedQuestions = {}
+	var listedQuestions = []
 	const module = req.headers.mod
 	console.log(module)
 	const statement = `SELECT * FROM questions WHERE question_id LIKE '%${module}%';`
@@ -181,8 +181,12 @@ server.get('/question', (req, res) => {
 			throw new Error(err)
 		} else {
 			console.log(rows)
+			var i = 0
+			var tempobj = {}
 			for (let h in rows) {
-				listedQuestions[h].push({'id': rows[h].question_id, 'question': rows[h].question})
+				tempobj = {'id': rows[h].question_id, 'question': rows[h].question}
+				listedQuestions.push(tempobj)
+				i++
 			}
 			console.log(listedQuestions)
 		}
