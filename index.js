@@ -169,6 +169,7 @@ server.post('/answerin', (req, res) => {
 })
 
 server.get('/question', (req, res) => {
+	console.log('Question Get')
 	var listedQuestions = {}
 	const module = req.headers.mod
 	if (module == NULL) {
