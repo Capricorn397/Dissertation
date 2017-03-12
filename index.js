@@ -186,7 +186,7 @@ server.get('/question', (req, res) => {
 			}
 			console.log(listedQuestions)
 		}
-		res.JSON(listedQuestions)
+		res.send(listedQuestions)
 	})
 })
 
