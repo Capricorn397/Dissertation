@@ -179,6 +179,7 @@ server.get('/question', (req, res) => {
 	const statement = `SELECT * FROM questions WHERE question_id LIKE '%${module}%';`
 	sql.query(statement, (err, rows) => {
 		if (err) {
+			console.log(err)
 			throw new Error(err)
 		} else {
 			for (let h in rows) {
