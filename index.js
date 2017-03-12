@@ -182,7 +182,7 @@ server.get('/question', (req, res) => {
 		} else {
 			console.log(rows)
 			for (let h in rows) {
-				listedQuestions.push({'id': rows[h].question_id, 'question': rows[h].question})
+				listedQuestions.push(rows[h])
 			}
 			console.log(listedQuestions)
 		}
