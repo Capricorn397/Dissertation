@@ -159,13 +159,15 @@ server.post('/answerin', (req, res) => {
 	const uid = req.headers.uid
 	const answer = req.body.answer
 	const answerStatement = `INSERT INTO answers VALUES ('${qid}', '${uid}', '${answer}');`
-	sql.query(answerStatement, (err, rows) => {
-		if (err) {
-			throw new Error(err)
-		} else {
-			res.send('Answer Submitted')
-		}
-	})
+	console.log(`Saw ${qid}, ${uid}, ${answer}`)
+	//sql.query(answerStatement, (err, rows) => {
+		//if (err) {
+			//throw new Error(err)
+		//} else {
+		//	res.send('Answer Submitted')
+		//}
+	//})
+	res.send("Recieved")
 })
 
 server.get('/question', (req, res) => {
