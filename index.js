@@ -158,6 +158,7 @@ server.post('/answerin', (req, res) => {
 	const qid = req.headers.qid
 	const uid = req.headers.uid
 	const answer = req.body.answer
+	console.log(req.body)
 	const answerStatement = `INSERT INTO answers VALUES ('${qid}', '${uid}', '${answer}');`
 	console.log(`Saw ${qid}, ${uid}, ${answer}`)
 	//sql.query(answerStatement, (err, rows) => {
