@@ -20,7 +20,7 @@ const options = {
 	cert: "./pushCert.pem",
 	key: "./pushCert.pem",
 	passphrase: "coventry",
-  production: false
+  production: true
 };
 
 const apnProvider = new apn.Provider(options);
