@@ -114,6 +114,7 @@ server.post('/questin', (req, res) => {
 				note.payload = {'messageFrom': 'John Appleseed'};
 				note.topic = "chris.capricorn.Dissertation-1";
 				apnProvider.send(note, deviceToken).then( (result) => {
+					console.log(result)
 					console.log('Sent Notification')
 				});
 			}
