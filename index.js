@@ -106,7 +106,7 @@ server.post('/questin', (req, res) => {
 			} else {
 				res.send(`Question sent with ID: ${qID}`)
 				var note = new apn.Notification();
-				let deviceToken = "F8673649CCC5CB27F840FD537DF42B38D264EFFE99C936A454AAE6BAE80C0134"
+				let deviceToken = "4DC1D0B7BD86E9ED61918A03CAA0B3EAB869EE576239A061033274FBDB2AF4A8"
 				note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
 				note.badge = 3;
 				note.sound = "ping.aiff";
