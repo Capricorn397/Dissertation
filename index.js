@@ -17,11 +17,9 @@ const server = restify.createServer({
 const io = socketio.listen(server);
 
 const options = {
-  token: {
-    key: "./pushCert.pem",
-    keyId: "coventry",
-		teamId: "3492RXQWHC"
-  },
+	cert: "./pushCert.pem",
+	pfx: "./pushCert.pem",
+	passphrase: "coventry",
   production: false
 };
 
