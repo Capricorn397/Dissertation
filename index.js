@@ -1,6 +1,6 @@
 'use strict'
 
-const apns  = require('apn')
+const apn  = require('apn')
 const http = require('http')
 const database = require('mysql')
 const restify = require('restify')
