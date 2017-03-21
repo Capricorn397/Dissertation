@@ -18,7 +18,7 @@ const io = socketio.listen(server);
 
 const options = {
 	cert: "./pushCert.pem",
-	pfx: "./pushCert.pem",
+	key: "./pushCert.pem",
 	passphrase: "coventry",
   production: false
 };
