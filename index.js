@@ -1,5 +1,6 @@
 'use strict'
 
+const apns  = require('apn')
 const http = require('http')
 const database = require('mysql')
 const restify = require('restify')
@@ -14,6 +15,16 @@ const server = restify.createServer({
 	version: '0.0.5'
 })
 const io = socketio.listen(server);
+
+const options = {
+  token: {
+    key: "./pushCert.pem",
+    keyId: "coventry"
+  },
+  production: false
+};
+
+const apnProvider = new apn.Provider(options);
 
 const questionStore = {}
 const answerStoreWord = {}
@@ -95,30 +106,17 @@ server.post('/questin', (req, res) => {
 				throw new Error(err)
 			} else {
 				res.send(`Question sent with ID: ${qID}`)
-				/*sql.query(`SELECT user_id FROM users WHERE module_id='${modCode}'`, (err, rows) => {
-					if (err) {
-						console.log(err)
-					} else {
-						const clients = []
-						for (let o in rows) {
-							clients.push(rows[o])
-						}
-						const iOSQuestion = {
-							id: qID,
-							quest: question
-						}
-						for (let u in clients) {
-							io.on('connection', (clients[u]) => {
-								client.on('event', (iOSQuestion) => {
-
-								})
-								client.on('disconnect', () => {
-
-								})
-							})
-						}
-					}
-				})*/
+				var note = new apn.Notification();
+				let deviceToken = "F8673649CCC5CB27F840FD537DF42B38D264EFFE99C936A454AAE6BAE80C0134"
+				note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
+				note.badge = 3;
+				note.sound = "ping.aiff";
+				note.alert = "\uD83D\uDCE7 \u2709 You have a new message";
+				note.payload = {'messageFrom': 'John Appleseed'};
+				note.topic = "chris.capricorn.Dissertation-1";
+				apnProvider.send(note, deviceToken).then( (result) => {
+					console.log('Sent Notification')
+				});
 			}
 		})
 	}
