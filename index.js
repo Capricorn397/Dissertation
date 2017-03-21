@@ -19,7 +19,8 @@ const io = socketio.listen(server);
 const options = {
   token: {
     key: "./pushCert.pem",
-    keyId: "coventry"
+    keyId: "coventry",
+		teamId: "3492RXQWHC"
   },
   production: false
 };
