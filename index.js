@@ -149,8 +149,7 @@ server.get('/wordcloud.js', restify.serveStatic({
 
 server.post('/register', (req, res) => {
 	const mod = 'newStyle'
-	const userCode = req.headers.pushToken
-	console.log(req.headers)
+	const userCode = req.headers.pushtoken
 	const userSQL = `INSERT INTO users VALUES ('${userCode}', '${mod}');`
 	sql.query(userSQL, (err, rows) => {
 		if (err) {
@@ -166,7 +165,6 @@ server.post('/answerin', (req, res) => {
 	const qid = req.headers.qid
 	const uid = req.headers.uid
 	const answer = req.body.answer
-	console.log(req.body)
 	const answerStatement = `INSERT INTO answers VALUES ('${qid}', '${uid}', '${answer}');`
 	sql.query(answerStatement, (err, rows) => {
 		if (err) {
