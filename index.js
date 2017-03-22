@@ -106,13 +106,6 @@ server.post('/questin', (req, res) => {
 				throw new Error(err)
 			} else {
 				res.send(`Question sent with ID: ${qID}`)
-				var note = new apn.Notification();
-				note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
-				note.badge = 1;
-				note.sound = "ping.aiff";
-				note.alert = "You Have A New Question!";
-				note.payload = {'messageFrom': 'John Appleseed'};
-				note.topic = "chris.capricorn.Dissertation-1";
 				const sqlQuery = 'SELECT user_id FROM users'
 				sql.query(sqlQuery, (err, rows) => {
 					if (err) {
@@ -120,6 +113,13 @@ server.post('/questin', (req, res) => {
 					} else {
 						for (let g in rows) {
 							console.log(rows[g])
+							var note = new apn.Notification();
+							note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
+							note.badge = 1;
+							note.sound = "ping.aiff";
+							note.alert = "You Have A New Question!";
+							note.payload = {'messageFrom': 'John Appleseed'};
+							note.topic = "chris.capricorn.Dissertation-1";
 							var deviceToken = rows[g].user_id
 							apnProvider.send(note, deviceToken).then( (result) => {
 								console.log(result)
