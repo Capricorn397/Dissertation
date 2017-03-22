@@ -20,7 +20,9 @@ const io = socketio.listen(server);
 const options = {
 	pfx: fs.readFileSync('./server.crt', 'utf8'),
 	key: fs.readFileSync('./key.pem', 'utf8'),
-	passphrase: 'coventry'
+	passphrase: 'coventry',
+	production: true
+
 };
 
 const apnProvider = new apn.Provider(options);
