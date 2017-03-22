@@ -18,10 +18,9 @@ const server = restify.createServer({
 const io = socketio.listen(server);
 
 const options = {
-	pfx: fs.readFileSync('./server.crt', 'utf8'),
-	key: fs.readFileSync('./key.pem', 'utf8'),
+	pfx: './apn_developer_identity.p12',
 	passphrase: 'coventry',
-	production: true
+	production: false
 
 };
 
