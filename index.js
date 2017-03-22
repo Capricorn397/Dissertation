@@ -107,7 +107,6 @@ server.post('/questin', (req, res) => {
 			} else {
 				res.send(`Question sent with ID: ${qID}`)
 				var note = new apn.Notification();
-				var deviceToken = "4DC1D0B7BD86E9ED61918A03CAA0B3EAB869EE576239A061033274FBDB2AF4A8"
 				note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
 				note.badge = 1;
 				note.sound = "ping.aiff";
@@ -120,7 +119,8 @@ server.post('/questin', (req, res) => {
 						throw new Error(err)
 					} else {
 						for (let g in rows) {
-							deviceToken = rows[g]
+							console.log(rows[g])
+							var deviceToken = rows[g]
 							apnProvider.send(note, deviceToken).then( (result) => {
 								console.log(result)
 							})
