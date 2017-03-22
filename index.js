@@ -107,16 +107,26 @@ server.post('/questin', (req, res) => {
 			} else {
 				res.send(`Question sent with ID: ${qID}`)
 				var note = new apn.Notification();
-				let deviceToken = "4DC1D0B7BD86E9ED61918A03CAA0B3EAB869EE576239A061033274FBDB2AF4A8"
+				var deviceToken = "4DC1D0B7BD86E9ED61918A03CAA0B3EAB869EE576239A061033274FBDB2AF4A8"
 				note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
 				note.badge = 1;
 				note.sound = "ping.aiff";
 				note.alert = "You Have A New Question!";
 				note.payload = {'messageFrom': 'John Appleseed'};
 				note.topic = "chris.capricorn.Dissertation-1";
-				apnProvider.send(note, deviceToken).then( (result) => {
-					console.log(result)
-				});
+				const sqlQuery = 'SELECT user_id FROM users'
+				sql.query(sqlQuery, (err, rows) => {
+					if (err) {
+						throw new Error(err)
+					} else {
+						for (let g in rows) {
+							deviceToken = rows[g]
+							apnProvider.send(note, deviceToken).then( (result) => {
+								console.log(result)
+							})
+						}
+					}
+				})
 			}
 		})
 	}
@@ -138,16 +148,15 @@ server.get('/wordcloud.js', restify.serveStatic({
 }))
 
 server.post('/register', (req, res) => {
-	const mod = req.headers.module
-	const udat = new Date()
-	const unique = udat.getTime()
-	const userCode = `${mod}${unique}u`
+	const mod = 'newStyle'
+	const userCode = req.headers.pushToken
 	const userSQL = `INSERT INTO users VALUES ('${userCode}', '${mod}');`
 	sql.query(userSQL, (err, rows) => {
 		if (err) {
 			throw new Error(err)
 		} else {
-			res.send(userCode)
+			console.log("Registered Device For Push Notifications")
+			res.send("Registered")
 		}
 	})
 })
@@ -158,14 +167,13 @@ server.post('/answerin', (req, res) => {
 	const answer = req.body.answer
 	console.log(req.body)
 	const answerStatement = `INSERT INTO answers VALUES ('${qid}', '${uid}', '${answer}');`
-	console.log(`Saw ${qid}, ${uid}, ${answer}`)
-	//sql.query(answerStatement, (err, rows) => {
-		//if (err) {
-			//throw new Error(err)
-		//} else {
-		//	res.send('Answer Submitted')
-		//}
-	//})
+	sql.query(answerStatement, (err, rows) => {
+		if (err) {
+			throw new Error(err)
+		} else {
+			res.send('Answer Submitted')
+		}
+	})
 	res.send("Recieved")
 })
 
