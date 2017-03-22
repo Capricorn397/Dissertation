@@ -120,7 +120,7 @@ server.post('/questin', (req, res) => {
 					} else {
 						for (let g in rows) {
 							console.log(rows[g])
-							var deviceToken = rows[g]
+							var deviceToken = rows[g].user_id
 							apnProvider.send(note, deviceToken).then( (result) => {
 								console.log(result)
 							})
