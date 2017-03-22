@@ -18,9 +18,9 @@ const io = socketio.listen(server);
 
 const options = {
 	cert: "./pushCert.pem",
-	key: "./pushCert.pem",
+	key: "./appPushCert.p12",
 	passphrase: "coventry",
-  production: true
+  production: false
 };
 
 const apnProvider = new apn.Provider(options);
