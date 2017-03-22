@@ -122,7 +122,7 @@ server.post('/questin', (req, res) => {
 							note.topic = "chris.capricorn.Dissertation-1";
 							var deviceToken = rows[g].user_id
 							apnProvider.send(note, deviceToken).then( (result) => {
-								console.log(result)
+								console.log(result.failed.response)
 							})
 						}
 					}
