@@ -113,12 +113,8 @@ server.post('/questin', (req, res) => {
 				note.alert = "\uD83D\uDCE7 \u2709 You have a new message";
 				note.payload = {'messageFrom': 'John Appleseed'};
 				note.topic = "chris.capricorn.Dissertation-1";
-				apnProvider.send(note, deviceToken).then( (err, result) => {
-					if (err) {
-						console.log(error)
-					}
+				apnProvider.send(note, deviceToken).then( (result) => {
 					console.log(result)
-					console.log('Sent Notification')
 				});
 			}
 		})
