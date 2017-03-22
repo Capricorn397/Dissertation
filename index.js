@@ -10,6 +10,7 @@ const port = 8000
 const firstArray = 0
 const twoDP = 2
 const fsTopTen = 10
+const fs = require('fs')
 const server = restify.createServer({
 	name: 'Dissertation_Server',
 	version: '0.0.5'
@@ -17,10 +18,8 @@ const server = restify.createServer({
 const io = socketio.listen(server);
 
 const options = {
-	cert: "./pushCert.pem",
-	key: "./appPushCert.p12",
-	passphrase: "coventry",
-  production: false
+	pfx: fs.readFileSync('./server.crt', 'utf8'),
+	key: fs.readFileSync('./key.pem', 'utf8')
 };
 
 const apnProvider = new apn.Provider(options);
