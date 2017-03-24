@@ -98,7 +98,7 @@ server.post('/questin', (req, res) => {
 		}
 	}
 	if (modTest === false) {
-		res.send('Error No Registered Module')
+		res.error('Error No Registered Module')
 	}
 	else {
 		sql.query(sqlStatement, (err, rows) => {
