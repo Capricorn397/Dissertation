@@ -118,7 +118,7 @@ server.post('/questin', (req, res) => {
 							note.badge = 1;
 							note.sound = "ping.aiff";
 							note.alert = "You Have A New Question!";
-							note.payload = {'messageFrom': 'John Appleseed'};
+							note.payload = {'messageFrom': 'Your Lecturer'};
 							note.topic = "chris.capricorn.Dissertation-1";
 							var deviceToken = rows[g].user_id
 							apnProvider.send(note, deviceToken).then( (result) => {
@@ -162,14 +162,17 @@ server.post('/register', (req, res) => {
 })
 
 server.post('/answerin', (req, res) => {
+	console.log('Answer In')
 	const qid = req.headers.qid
 	const uid = req.headers.uid
 	const answer = req.body.answer
 	const answerStatement = `INSERT INTO answers VALUES ('${qid}', '${uid}', '${answer}');`
+	console.log(answerStatement)
 	sql.query(answerStatement, (err, rows) => {
 		if (err) {
 			throw new Error(err)
 		} else {
+			console.log('Answer Added')
 			res.send('Answer Submitted')
 		}
 	})
@@ -180,15 +183,12 @@ server.get('/question', (req, res) => {
 	console.log('Question Get')
 	var listedQuestions = []
 	const module = req.headers.mod
-	console.log(module)
 	const statement = `SELECT * FROM questions WHERE question_id LIKE '%${module}%';`
-	console.log(statement)
 	sql.query(statement, (err, rows) => {
 		if (err) {
 			console.log(err)
 			throw new Error(err)
 		} else {
-			console.log(rows)
 			var i = 0
 			var tempobj = {}
 			for (let h in rows) {
@@ -196,7 +196,6 @@ server.get('/question', (req, res) => {
 				listedQuestions.push(tempobj)
 				i++
 			}
-			console.log(listedQuestions)
 		}
 		res.send(listedQuestions)
 	})
