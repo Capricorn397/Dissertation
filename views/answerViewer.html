@@ -21,8 +21,8 @@
 function init()
 {
     canvas = document.getElementById("mainCanvas");
-    canvas.width = 1000; //document.width is obsolete
-    canvas.height = 1000; //document.height is obsolete
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
     canvasW = canvas.width;
     canvasH = canvas.height;
 
