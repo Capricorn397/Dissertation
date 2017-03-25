@@ -214,9 +214,20 @@ server.get('allAnswers', (req,res) => {
 			for (let r in rows) {
 				temp.push(rows[r].answer)
 			}
+			var add = true
 			for (let q in temp) {
-				allAnswers[q] = [temp[q], 10]
+				add = true
+				for (let z in allAnswers){
+					if (temp[q] == allAnswers[z][0]) {
+						allAnswers[z][1] = allAnswers[z][1] + 5
+						add = false
+					}
+				}
+				if (add == true) {
+					allAnswers[q] = [temp[q], 10]
+				}
 			}
+			console.log(allAnswers)
 			res.send(allAnswers)
 		}
 	})
