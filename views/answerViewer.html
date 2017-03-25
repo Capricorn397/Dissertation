@@ -1,13 +1,4 @@
 <html>
-<style>
-	#mycanvas {
-		width:500;
-		height:500;
-		z-index: -1;
-		border: 1px solid #ccc;
-		background-color: #f3f3f3;
-	}
-</style>
 <head>
 	<title>Answer Page</title>
 </head>
@@ -19,13 +10,29 @@
 		<input id=code type="text"><br>
 		<input type="submit">
 	</form>
-	<canvas id=mycanvas>
+	<canvas id=mainCanvas>
 	</canvas>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="wordcloud.js"></script>
+<script type="text/javascript">
+function init()
+{
+    canvas = document.getElementById("mainCanvas");
+    canvas.width = document.body.clientWidth; //document.width is obsolete
+    canvas.height = document.body.clientHeight; //document.height is obsolete
+    canvasW = canvas.width;
+    canvasH = canvas.height;
+
+    if( canvas.getContext )
+    {
+        setup();
+        setInterval( run , 33 );
+    }
+}
+</script>
 <script type="text/javascript">
 function readCookie(name) {
     var nameEQ = name + "=";
