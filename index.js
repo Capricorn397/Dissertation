@@ -224,7 +224,7 @@ server.get('allAnswers', (req,res) => {
 					}
 				}
 				if (add == true) {
-					allAnswers[q] = [temp[q], 10]
+					allAnswers.push([temp[q], 10])
 				}
 			}
 			console.log(allAnswers)
