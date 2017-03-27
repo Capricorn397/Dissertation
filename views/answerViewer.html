@@ -10,7 +10,7 @@
 	<title>Answer Page</title>
 </head>
 <body>
-	<a href="http://217.182.64.177:8000/input.html"><button>Answer Viewer</button></a>
+	<a href="http://217.182.64.177:8000/input.html"><button>Question Input</button></a>
 	<form>
 		<h1 align=center>Select Question</h1><br>
 		Module Code:<br>
@@ -63,7 +63,7 @@ $(document).ready(function() {
 		const questionCode = document.getElementById('code').value;
 		$.ajax({
 			type: 'GET',
-			url: 'http://217.182.64.177:8000/allAnswers', //'http://localhost:8000/questin'
+			url: 'http://217.182.64.177:8000/allAnswers',
 			headers: {
 				qid: questionCode
 			},
