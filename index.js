@@ -7,7 +7,7 @@ const socketio = require('socket.io')
 const port = 8000
 const server = restify.createServer({
 	name: 'Dissertation_Server',
-	version: '0.0.5'
+	version: '1.0.0'
 })
 const io = socketio.listen(server)
 
