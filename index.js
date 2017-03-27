@@ -1,46 +1,27 @@
 'use strict'
 
-const apn  = require('apn')
-const http = require('http')
+const apn = require('apn')
 const database = require('mysql')
 const restify = require('restify')
-const error = ''
 const socketio = require('socket.io')
 const port = 8000
-const firstArray = 0
-const twoDP = 2
-const fsTopTen = 10
-const fs = require('fs')
 const server = restify.createServer({
 	name: 'Dissertation_Server',
 	version: '0.0.5'
 })
-const io = socketio.listen(server);
+const io = socketio.listen(server)
 
 const options = {
 	pfx: './apn_developer_identity.p12',
 	passphrase: 'coventry',
 	production: false
 
-};
-
-const apnProvider = new apn.Provider(options);
-
-const questionStore = {}
-const answerStoreWord = {}
-const answerStoreYN = [0,0]
-const answerStoreTF = [0,0]
-const moduleTokens = ['340ct', '380ct', '370ct']
-const httpCodes = {
-	OK: 200,
-	Created: 201,
-	Unauthorized: 401,
-	Forbidden: 403,
-	notFound: 404,
-	methodNotAllowed: 405,
-	requestTimeout: 408,
-	internalServerError: 500
 }
+
+const apnProvider = new apn.Provider(options)
+
+const moduleTokens = ['340ct', '380ct', '370ct']
+
 
 const sql = database.createPool({
 	user: 'mainServer',
@@ -51,15 +32,15 @@ const sql = database.createPool({
 	connectionLimit: 10
 })
 
-io.sockets.on('connection', function (socket) {
+io.sockets.on('connection', function(socket) {
 	console.log('In connection area of io')
 	socket.emit('news', { hello: 'world' })
-	socket.on('my other event', function (data) {
-    console.log(data)
-  })
+	socket.on('my other event', function(data) {
+		console.log(data)
+	})
 })
 
-server.listen(8000, () => {
+server.listen(port, () => {
 	console.log('socket.io server listening at %s', server.url)
 })
 
@@ -93,16 +74,15 @@ server.post('/questin', (req, res) => {
 	const sqlStatement = `INSERT INTO questions VALUES ('${qID}', '${question}');`
 	let modTest = false
 	for (let i = 0; i < moduleTokens.length; i++) {
-		if (modCode == moduleTokens[i]) {
+		if (modCode === moduleTokens[i]) {
 			modTest = true
 		}
 	}
 	if (modTest === false) {
 		res.status(500)
 		res.send('Error No Registered Module')
-	}
-	else {
-		sql.query(sqlStatement, (err, rows) => {
+	} else {
+		sql.query(sqlStatement, (err) => {
 			if (err) {
 				throw new Error(err)
 			} else {
@@ -112,16 +92,16 @@ server.post('/questin', (req, res) => {
 					if (err) {
 						throw new Error(err)
 					} else {
-						for (let g in rows) {
+						for (const g in rows) {
 							console.log(rows[g])
-							var note = new apn.Notification();
-							note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
-							note.badge = 1;
-							note.sound = "ping.aiff";
-							note.alert = "You Have A New Question!";
-							note.payload = {'messageFrom': 'Your Lecturer'};
-							note.topic = "chris.capricorn.Dissertation-1";
-							var deviceToken = rows[g].user_id
+							const note = new apn.Notification()
+							note.expiry = Math.floor(Date.now() / 1000) + 3600
+							note.badge = 1
+							note.sound = 'ping.aiff'
+							note.alert = 'You Have A New Question!'
+							note.payload = {'messageFrom': 'Your Lecturer'}
+							note.topic = 'chris.capricorn.Dissertation-1'
+							const deviceToken = rows[g].user_id
 							apnProvider.send(note, deviceToken).then( (result) => {
 								console.log(result)
 							})
@@ -152,12 +132,12 @@ server.post('/register', (req, res) => {
 	const mod = 'newStyle'
 	const userCode = req.headers.pushtoken
 	const userSQL = `INSERT INTO users VALUES ('${userCode}', '${mod}');`
-	sql.query(userSQL, (err, rows) => {
+	sql.query(userSQL, (err) => {
 		if (err) {
 			throw new Error(err)
 		} else {
-			console.log("Registered Device For Push Notifications")
-			res.send("Registered")
+			console.log('Registered Device For Push Notifications')
+			res.send('Registered')
 		}
 	})
 })
@@ -169,7 +149,7 @@ server.post('/answerin', (req, res) => {
 	const answer = req.body.answer
 	const answerStatement = `INSERT INTO answers VALUES ('${qid}', '${uid}', '${answer}');`
 	console.log(answerStatement)
-	sql.query(answerStatement, (err, rows) => {
+	sql.query(answerStatement, (err) => {
 		if (err) {
 			throw new Error(err)
 		} else {
@@ -177,12 +157,12 @@ server.post('/answerin', (req, res) => {
 			res.send('Answer Submitted')
 		}
 	})
-	res.send("Recieved")
+	res.send('Recieved')
 })
 
 server.get('/question', (req, res) => {
 	console.log('Question Get')
-	var listedQuestions = []
+	const listedQuestions = []
 	const module = req.headers.mod
 	const statement = `SELECT * FROM questions WHERE question_id LIKE '%${module}%';`
 	sql.query(statement, (err, rows) => {
@@ -190,12 +170,10 @@ server.get('/question', (req, res) => {
 			console.log(err)
 			throw new Error(err)
 		} else {
-			var i = 0
-			var tempobj = {}
-			for (let h in rows) {
+			const tempobj = {}
+			for (const h in rows) {
 				tempobj = {'id': rows[h].question_id, 'question': rows[h].question}
 				listedQuestions.push(tempobj)
-				i++
 			}
 		}
 		res.send(listedQuestions)
@@ -205,26 +183,26 @@ server.get('/question', (req, res) => {
 server.get('allAnswers', (req,res) => {
 	const questionID = req.headers.qid
 	const allAnsState = `SELECT answer FROM answers WHERE question_id like '${questionID}';`
-	var allAnswers = [[]]
+	const allAnswers = [[]]
 	allAnswers.pop()
-	var temp = []
+	const temp = []
 	sql.query(allAnsState, (err, rows) => {
 		if (err) {
 			throw new Error(err)
 		} else {
-			for (let r in rows) {
+			for (const r in rows) {
 				temp.push(rows[r].answer)
 			}
-			var add = true
-			for (let q in temp) {
+			let add = true
+			for (const q in temp) {
 				add = true
-				for (let z in allAnswers){
-					if (temp[q] == allAnswers[z][0]) {
+				for (const z in allAnswers){
+					if (temp[q] === allAnswers[z][0]) {
 						allAnswers[z][1] = allAnswers[z][1] + 5
 						add = false
 					}
 				}
-				if (add == true) {
+				if (add === true) {
 					allAnswers.push([temp[q], 10])
 				}
 			}
