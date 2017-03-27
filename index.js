@@ -170,7 +170,7 @@ server.get('/question', (req, res) => {
 			console.log(err)
 			throw new Error(err)
 		} else {
-			const tempobj = {}
+			let tempobj = {}
 			for (const h in rows) {
 				tempobj = {'id': rows[h].question_id, 'question': rows[h].question}
 				listedQuestions.push(tempobj)
