@@ -67,7 +67,7 @@ $(document).ready(function() {
 				console.log(err);
 			},
 			success: function(res) {
-				alert(res)
+				alert(`Question ID is: ${res}`)
 				document.cookie = "questionId" + "=" + res
 
 			}
