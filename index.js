@@ -198,7 +198,7 @@ server.get('allAnswers', (req,res) => {
 				add = true
 				for (const z in allAnswers){
 					if (temp[q] === allAnswers[z][0]) {
-						allAnswers[z][1] = allAnswers[z][1] + 5
+						allAnswers[z][1] = allAnswers[z][1] + 2
 						add = false
 					}
 				}
