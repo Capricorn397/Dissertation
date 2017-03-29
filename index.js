@@ -20,7 +20,7 @@ const options = {
 
 const apnProvider = new apn.Provider(options)
 
-const moduleTokens = ['340ct', '380ct', '370ct']
+const moduleTokens = ['340ct', '380ct', '370ct', '207se']
 
 
 const sql = database.createPool({
