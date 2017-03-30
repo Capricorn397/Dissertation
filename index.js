@@ -86,28 +86,28 @@ server.post('/questin', (req, res) => {
 			if (err) {
 				throw new Error(err)
 			} else {
-				res.send(`${qID}`)
+				/*res.send(`${qID}`)
 				const sqlQuery = 'SELECT user_id FROM users'
 				sql.query(sqlQuery, (err, rows) => {
 					if (err) {
 						throw new Error(err)
 					} else {
-						for (const g in rows) {
-							console.log(rows[g])
-							const note = new apn.Notification()
-							note.expiry = Math.floor(Date.now() / 1000) + 3600
-							note.badge = 1
-							note.sound = 'ping.aiff'
-							note.alert = 'You Have A New Question!'
-							note.payload = {'messageFrom': 'Your Lecturer'}
-							note.topic = 'chris.capricorn.Dissertation-1'
-							const deviceToken = rows[g].user_id
-							apnProvider.send(note, deviceToken).then( (result) => {
-								console.log(result)
-							})
-						}
-					}
+						for (const g in rows) {*/
+							//console.log(rows[g])
+				const note = new apn.Notification()
+				note.expiry = Math.floor(Date.now() / 1000) + 3600
+				note.badge = 1
+				note.sound = 'ping.aiff'
+				note.alert = 'You Have A New Question!'
+				note.payload = {'messageFrom': 'Your Lecturer'}
+				note.topic = 'chris.capricorn.Dissertation-1'
+				const deviceToken = 'A98C1BCDA492FCD428EC12C1ACBF555DF7F0FA62A57AFAC6D12ADF0B662C96BE'
+				apnProvider.send(note, deviceToken).then( (result) => {
+					console.log(result)
 				})
+						//}
+					//}
+				//})
 			}
 		})
 	}
