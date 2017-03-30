@@ -86,8 +86,8 @@ server.post('/questin', (req, res) => {
 			if (err) {
 				throw new Error(err)
 			} else {
-				/*res.send(`${qID}`)
-				const sqlQuery = 'SELECT user_id FROM users'
+				res.send(`${qID}`)
+				/*const sqlQuery = 'SELECT user_id FROM users'
 				sql.query(sqlQuery, (err, rows) => {
 					if (err) {
 						throw new Error(err)
