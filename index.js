@@ -12,13 +12,13 @@ const server = restify.createServer({
 const io = socketio.listen(server)
 
 const options = {
-	pfx: './apn_developer_identity.p12',
+	pfx: "",//'./apn_developer_identity.p12', Removed as no file available
 	passphrase: 'coventry',
 	production: false
 
 }
 
-const apnProvider = new apn.Provider(options)
+//const apnProvider = new apn.Provider(options) Not currently able to send notification
 
 const moduleTokens = ['340ct', '380ct', '370ct', '207se']
 
@@ -102,9 +102,10 @@ server.post('/questin', (req, res) => {
 							note.payload = {'messageFrom': 'Your Lecturer'}
 							note.topic = 'chris.capricorn.Dissertation-1'
 							const deviceToken = rows[g].user_id
-							apnProvider.send(note, deviceToken).then( (result) => {
-								console.log(result)
-							})
+							//Disabled as not available
+							//apnProvider.send(note, deviceToken).then( (result) => {
+								//console.log(result)
+							//})
 						}
 					}
 				})
